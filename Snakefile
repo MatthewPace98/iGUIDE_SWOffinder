@@ -212,6 +212,15 @@ elif (config["Aligner"] == "BWA" or config["Aligner"] == "bwa"):
     else:
         include: "rules/align.bwa.rules"
     include: "rules/quality.sam.rules"
+
+elif config["Aligner"].lower() == "swoffinder":
+    include: "rules/consol_stub.rules"
+    if config["Alternate_UMI_Method"]:
+        include: "rules/align.swoffinder.umi_alt_method.rules"
+    else:
+        include: "rules/align.swoffinder.rules"
+    include: "rules/quality.sam.rules"
+
 else:
     raise SystemExit( 
         "\n  Aligner: " + config["Aligner"] + " not currently supported."
